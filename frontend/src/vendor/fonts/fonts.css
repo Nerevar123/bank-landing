@@ -1,0 +1,79 @@
+@font-face {
+  font-family: 'Inter';
+  font-style:  normal;
+  font-weight: normal;
+  font-display: swap;
+  src:  url('./Inter-Regular.ttf') format('truetype'),
+        url('./Inter-Regular.woff2') format('woff2'),
+        url('./Inter-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style:  normal;
+  font-weight: 500;
+  font-display: swap;
+  src:  url('./Inter-Medium.ttf') format('truetype'),
+        url('./Inter-Medium.woff2') format('woff2'),
+        url('./Inter-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style:  normal;
+  font-weight: normal;
+  font-display: swap;
+  src:  url('./Roboto-Regular.ttf') format('truetype'),
+        url('./Roboto-Regular.woff2') format('woff2'),
+        url('./Roboto-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style:  normal;
+  font-weight: 500;
+  font-display: swap;
+  src:  url('./Roboto-Medium.ttf') format('truetype'),
+        url('./Roboto-Medium.woff2') format('woff2'),
+        url('./Roboto-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style:  normal;
+  font-weight: 900;
+  font-display: swap;
+  src:  url('./Roboto-Black.ttf') format('truetype'),
+        url('./Roboto-Black.woff2') format('woff2'),
+        url('./Roboto-Black.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'RobotoSlab';
+  font-style:  normal;
+  font-weight: normal;
+  font-display: swap;
+  src:  url('./RobotoSlab-Regular.ttf') format('truetype'),
+        url('./RobotoSlab-Regular.woff2') format('woff2'),
+        url('./RobotoSlab-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'RobotoSlab';
+  font-style:  normal;
+  font-weight: 700;
+  font-display: swap;
+  src:  url('./RobotoSlab-Bold.ttf') format('truetype'),
+        url('./RobotoSlab-Bold.woff2') format('woff2'),
+        url('./RobotoSlab-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'SourceSansPro';
+  font-style:  normal;
+  font-weight: normal;
+  font-display: swap;
+  src:  url('./SourceSansPro-Regular.ttf') format('truetype'),
+        url('./SourceSansPro-Regular.woff2') format('woff2'),
+        url('./SourceSansPro-Regular.woff') format('woff');
+}

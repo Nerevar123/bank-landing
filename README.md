@@ -1,6 +1,6 @@
-# Stone Flower #
+# Landing for a bank #
 
-Stone Flower project.
+React and Express.js
 
 
 **Technologies**
@@ -13,11 +13,11 @@ Stone Flower project.
 
 
 
-**Link to the project**
+<!-- **Link to the project**
 
 https://stone.ner.works
 
 **Link to API**
 
-https://api.stone.ner.works
+https://api.stone.ner.works -->
 
