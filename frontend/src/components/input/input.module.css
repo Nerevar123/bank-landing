@@ -1,0 +1,76 @@
+.label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 36px;
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 0;
+  border: 0;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.3);
+  font-size: 16px;
+  line-height: 1.2;
+  outline: none;
+  transition: 0.3s;
+  box-sizing: border-box;
+}
+
+.inputError {
+  border-bottom-color: #ff0000;
+}
+
+.error {
+  font-size: 12px;
+  line-height: 1.25;
+  color: #ff0000;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.errorActive {
+  opacity: 1;
+}
+
+.placeholder {
+  font-size: 16px;
+  line-height: 1.2;
+  color: rgb(0, 0, 0, 0.3);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%) scale(1);
+  transition: 0.3s;
+  pointer-events: none;
+  margin-left: 15px;
+  padding: 4px;
+  background-color: #fff;
+}
+
+.input:focus + .placeholder,
+.placeholderFixed {
+  font-size: 14px;
+  transform: translateY(-180%) scale(1);
+}
+
+@media screen and (max-width: 915px) {
+  .label {
+    margin-bottom: 48px;
+  }
+  .input {
+    font-size: 12px;
+    line-height: 1.25;
+  }
+  .placeholder {
+    font-size: 12px;
+    line-height: 1.25;
+  }
+  .input:focus + .placeholder,
+  .placeholderFixed {
+    font-size: 10px;
+  }
+}

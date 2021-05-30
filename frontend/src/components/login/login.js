@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import Input from "../input/input";
+import Button from "../button/button";
 import loginStyles from "./login.module.css";
 
 function Login({ validation, onAuthorize }) {
@@ -12,38 +13,34 @@ function Login({ validation, onAuthorize }) {
   function handleSubmit(e) {
     e.preventDefault();
     onAuthorize({
-      email: values.email || "",
-      password: values.password || "",
+      email: values.email,
+      password: values.password,
     });
   }
 
   return (
-    <section className={loginStyles.section}>
-      <h2 className="login__heading">Студия Керамогранита «Каменный цветок»</h2>
+    <section className="login">
+      <h2 className={loginStyles.title}>Sign in</h2>
       <form
-        className="login__form"
+        className={loginStyles.form}
         name="login"
         onSubmit={handleSubmit}
         method="GET"
       >
-        <h3 className="login__title">Авторизация</h3>
-        <fieldset className="login__fields">
+        <fieldset className={loginStyles.fields}>
           <Input
             validation={validation}
-            className="login"
             name="email"
-            labelText="Логин"
             placeholder="Email"
+            autoComplete="email"
+            autoFocus
             type="email"
             required
-            autoComplete="username"
           />
           <Input
             validation={validation}
-            className="login"
             name="password"
-            labelText="Пароль"
-            placeholder="Пароль"
+            placeholder="Password"
             type="password"
             required
             minLength="4"
@@ -57,15 +54,15 @@ function Login({ validation, onAuthorize }) {
             {errors.submit || ""}
           </span>
         </fieldset>
-        <button
+        <Button
           type="submit"
           disabled={!isValid}
           className={`login__save-button ${
             !isValid ? "login__save-button_disabled" : ""
           }`}
         >
-          Войти
-        </button>
+          Sign In
+        </Button>
       </form>
     </section>
   );
