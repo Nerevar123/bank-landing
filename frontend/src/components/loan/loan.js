@@ -1,10 +1,12 @@
+import Section from "../section/section";
 import loanStyles from "./loan.module.css";
 
 function Loan() {
   return (
-    <section>
+    <Section title="Please choose the loan amount and term:">
 
-    </section>
+
+    </Section>
   );
 }
 

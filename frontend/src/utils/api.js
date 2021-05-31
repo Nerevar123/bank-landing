@@ -22,3 +22,12 @@ export const getUserInfo = () => {
     credentials: "include",
   }).then(checkError);
 };
+
+export const patchDetails = (data) => {
+  return fetch(`${baseUrl}users/me`, {
+    method: "PATCH",
+    headers: headers,
+    credentials: "include",
+    body: JSON.stringify(data),
+  }).then(checkError);
+};

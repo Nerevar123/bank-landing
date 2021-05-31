@@ -1,0 +1,55 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 100px auto;
+  max-width: 70%;
+}
+
+.title {
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 1.2;
+  margin-top: 0;
+  margin-bottom: 22px;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.button {
+  align-self: center;
+  min-width: 120px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.iconButton {
+  width: 36px;
+  height: 36px;
+  background-size: contain;
+  border: 0;
+}
+
+.addButton {
+  background-image: url(../../images/round-add-button.svg);
+}
+
+.deleteButton {
+  background-image: url(../../images/round-delete-button.svg);
+}

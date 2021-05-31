@@ -1,5 +1,5 @@
-import React, { useState, useEffect, createContext } from "react";
-import { Router, Route, Switch, useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Router, Route, Switch, useHistory, Redirect } from "react-router-dom";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
 import Header from "../header/header";
 import Login from "../login/login";
@@ -8,9 +8,11 @@ import Details from "../details/details";
 import Accounts from "../accounts/accounts";
 import Loan from "../loan/loan";
 import Footer from "../footer/footer";
+import Preloader from "../preloader/preloader";
 import appStyles from "./app.module.css";
-import { login, logout, getUserInfo } from "../../utils/api";
+import { login, logout, getUserInfo, patchDetails } from "../../utils/api";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import ProtectedRoute from "../hocs/ProtectedRoute";
 
 function App() {
   const history = useHistory();
@@ -24,13 +26,15 @@ function App() {
       .then((user) => {
         setCurrentUser(user);
         setIsLoggedIn(true);
+        // history.push("/details");
       })
       .catch((err) => {
+        setIsLoggedIn(false);
         console.log(err);
       });
   }, []);
 
-  function handleLogin(user) {
+  const handleLogin = (user) => {
     setIsSaving(true);
     login(user)
       .then((user) => {
@@ -51,9 +55,9 @@ function App() {
       .finally(() => {
         setIsSaving(false);
       });
-  }
+  };
 
-  function handleLogout() {
+  const handleLogout = () => {
     logout()
       .then(() => {
         setIsLoggedIn(false);
@@ -62,6 +66,26 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const handlePatchDetails = (data) => {
+    patchDetails(data)
+      .then((user) => {
+        setCurrentUser(user);
+        history.push("/accounts");
+      })
+      .catch((err) => {
+        if (typeof err === "object") {
+          validation.setErrors({ submit: "Ошибка сервера" });
+        } else {
+          validation.setErrors({ submit: err });
+        }
+        console.log(err);
+      });
+  };
+
+  if (isLoggedIn === null) {
+    return <Preloader />;
   }
 
   return (
@@ -70,20 +94,27 @@ function App() {
         <Header isLoggedIn={isLoggedIn} onLogoutClick={handleLogout} />
         <main className={appStyles.main}>
           <Switch>
-            <Route exact path="/">
-              <Login validation={validation} onAuthorize={handleLogin} />
-            </Route>
             <Route exact path="/register">
               <Register />
             </Route>
-            <Route exact path="/details">
-              <Details validation={validation} />
-            </Route>
-            <Route exact path="/accounts">
-              <Accounts />
-            </Route>
-            <Route exact path="/loan">
+            <ProtectedRoute exact path="/details" loggedIn={isLoggedIn}>
+              <Details
+                validation={validation}
+                onPatchDetails={handlePatchDetails}
+              />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/accounts" loggedIn={isLoggedIn}>
+              <Accounts validation={validation} goBack={history.goBack} />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/loan" loggedIn={isLoggedIn}>
               <Loan />
+            </ProtectedRoute>
+            <Route exact path="/">
+              {isLoggedIn ? (
+                <Redirect to="/details" />
+              ) : (
+                <Login validation={validation} onAuthorize={handleLogin} />
+              )}
             </Route>
           </Switch>
         </main>

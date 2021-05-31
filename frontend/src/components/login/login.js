@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Section from "../section/section";
 import Input from "../input/input";
 import Button from "../button/button";
 import loginStyles from "./login.module.css";
@@ -19,8 +20,7 @@ function Login({ validation, onAuthorize }) {
   }
 
   return (
-    <section className="login">
-      <h2 className={loginStyles.title}>Sign in</h2>
+    <Section title="Sign In">
       <form
         className={loginStyles.form}
         name="login"
@@ -64,7 +64,7 @@ function Login({ validation, onAuthorize }) {
           Sign In
         </Button>
       </form>
-    </section>
+    </Section>
   );
 }
 
