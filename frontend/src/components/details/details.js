@@ -1,12 +1,13 @@
 import { useEffect, useContext } from "react";
 import cn from "classnames";
 import Section from "../section/section";
+import Form from "../form/form";
 import Button from "../button/button";
 import Input from "../input/input";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import detailsStyles from "./details.module.css";
 
-function Details({ validation, onPatchDetails }) {
+function Details({ validation, onSubmit }) {
   const { values, errors, isValid, resetForm, setIsValid } = validation;
   const currentUser = useContext(CurrentUserContext);
 
@@ -21,8 +22,7 @@ function Details({ validation, onPatchDetails }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(values);
-    onPatchDetails({
+    onSubmit({
       name: values.name || currentUser.name,
       surname: values.surname || currentUser.surname,
       id: values.id || currentUser.id,
@@ -36,16 +36,13 @@ function Details({ validation, onPatchDetails }) {
 
   return (
     <Section title="Please provide your details:">
-      <form
-        className={detailsStyles.form}
-        name="details"
-        onSubmit={handleSubmit}
-        method="GET"
-      >
+      <Form name="details" onSubmit={handleSubmit}>
         <fieldset className={detailsStyles.fields}>
           <Input
             validation={validation}
             className={detailsStyles.input}
+            phClassName={detailsStyles.placeholder}
+            errorClassName={detailsStyles.inputError}
             name="name"
             placeholder="First name*"
             required
@@ -55,6 +52,8 @@ function Details({ validation, onPatchDetails }) {
           <Input
             validation={validation}
             className={detailsStyles.input}
+            phClassName={detailsStyles.placeholder}
+            errorClassName={detailsStyles.inputError}
             name="surname"
             placeholder="Family name*"
             required
@@ -64,6 +63,8 @@ function Details({ validation, onPatchDetails }) {
           <Input
             validation={validation}
             className={detailsStyles.input}
+            phClassName={detailsStyles.placeholder}
+            errorClassName={detailsStyles.inputError}
             name="id"
             placeholder="ID number*"
             required
@@ -73,6 +74,8 @@ function Details({ validation, onPatchDetails }) {
           <Input
             validation={validation}
             className={detailsStyles.input}
+            phClassName={detailsStyles.placeholder}
+            errorClassName={detailsStyles.inputError}
             name="birthDate"
             placeholder="Date of birth*"
             required
@@ -81,6 +84,8 @@ function Details({ validation, onPatchDetails }) {
           <Input
             validation={validation}
             className={detailsStyles.input}
+            phClassName={detailsStyles.placeholder}
+            errorClassName={detailsStyles.inputError}
             name="tel"
             placeholder="Phone number"
             minLength="9"
@@ -88,6 +93,8 @@ function Details({ validation, onPatchDetails }) {
           <Input
             validation={validation}
             className={detailsStyles.input}
+            phClassName={detailsStyles.placeholder}
+            errorClassName={detailsStyles.inputError}
             name="email"
             placeholder="Email*"
             required
@@ -96,6 +103,8 @@ function Details({ validation, onPatchDetails }) {
           <Input
             validation={validation}
             className={detailsStyles.input}
+            phClassName={detailsStyles.placeholder}
+            errorClassName={detailsStyles.inputError}
             name="companyName"
             placeholder="Company name*"
             required
@@ -105,28 +114,15 @@ function Details({ validation, onPatchDetails }) {
           <Input
             validation={validation}
             className={detailsStyles.input}
+            phClassName={detailsStyles.placeholder}
+            errorClassName={detailsStyles.inputError}
             name="companyNumber"
             placeholder="Company number (ח.פ .)*"
             required
             minLength="2"
             maxLength="30"
           />
-          <span
-            className={`login__error ${
-              errors.submit ? "login__error_active" : ""
-            }`}
-          >
-            {errors.submit || ""}
-          </span>
         </fieldset>
-        {/* <div className={detailsStyles.buttons}> */}
-        {/* <Button
-            className={detailsStyles.button}
-            type="submit"
-            disabled={!isValid}
-          >
-            Back
-          </Button> */}
         <Button
           className={cn(detailsStyles.button, {
             [detailsStyles.button]: !isValid,
@@ -136,8 +132,14 @@ function Details({ validation, onPatchDetails }) {
         >
           Next
         </Button>
-        {/* </div> */}
-      </form>
+        <span
+          className={cn(detailsStyles.submitError, {
+            [detailsStyles.submitErrorActive]: [errors.submit],
+          })}
+        >
+          {errors.submit || ""}
+        </span>
+      </Form>
     </Section>
   );
 }

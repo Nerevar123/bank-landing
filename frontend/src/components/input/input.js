@@ -1,21 +1,35 @@
 import cn from "classnames";
 import inputStyles from "./input.module.css";
 
-function Input({ name, placeholder, validation, className, ...props }) {
+function Input({
+  name,
+  placeholder,
+  validation,
+  className,
+  phClassName,
+  errorClassName,
+  labelClassName,
+  ...props
+}) {
   const { values, errors, handleChange } = validation;
   return (
-    <label className={inputStyles.label}>
+    <label className={cn(inputStyles.label, labelClassName)}>
       <input
         name={name}
-        className={cn(inputStyles.input, className, {
-          [inputStyles.inputError]: errors[name],
-        })}
+        className={cn(
+          inputStyles.input,
+          className,
+          {
+            [inputStyles.inputError]: errors[name],
+          },
+          { [errorClassName]: errors[name] }
+        )}
         value={values[name] || ""}
         onChange={handleChange}
         {...props}
       />
       <span
-        className={cn(inputStyles.placeholder, {
+        className={cn(inputStyles.placeholder, phClassName, {
           [inputStyles.placeholderFixed]: values[name],
         })}
       >

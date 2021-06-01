@@ -8,16 +8,15 @@
   width: 100%;
 }
 
-.bankLabel {
-
-}
-
 .label {
   width: 30%;
+  position: relative;
 }
 
 .select {
   height: 100%;
+  border-radius: 8px;
+  min-height: 45px;
 }
 
 .input {
@@ -31,4 +30,19 @@
   transition: 0.3s;
   box-sizing: border-box;
   padding-left: 8px;
+  border-radius: 8px;
+}
+
+@media screen and (max-width: 500px) {
+  .fields {
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+  .bankLabel {
+    flex-basis: 100%;
+    text-align: center;
+  }
+  .select {
+    width: 65%;
+  }
 }

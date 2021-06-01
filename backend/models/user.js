@@ -24,26 +24,29 @@ const userSchema = new mongoose.Schema({
       message: 'Invalid character in password',
     },
   },
+  id: {
+    type: String,
+    required: true,
+    minlength: 9,
+    maxlength: 12,
+  },
   name: {
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 30,
+    maxlength: 20,
   },
   surname: {
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 30,
+    maxlength: 20,
   },
   tel: {
     type: String,
-    required: true,
-    minlength: 9,
-    maxlength: 20,
   },
   birthDate: {
-    type: Date,
+    type: String,
     required: true,
   },
   companyName: {
@@ -58,9 +61,19 @@ const userSchema = new mongoose.Schema({
     minlength: 2,
     maxlength: 30,
   },
-  lastActiveAt: {
-    type: Date,
+  accounts: {
+    type: Object,
   },
+  loan: [{
+    amount: {
+      type: String,
+      required: true,
+    },
+    term: {
+      type: String,
+      required: true,
+    },
+  }],
 });
 
 userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password) {

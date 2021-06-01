@@ -1,7 +1,7 @@
 .label {
   display: flex;
   flex-direction: column;
-  margin-bottom: 36px;
+  margin-bottom: 24px;
   position: relative;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .inputError {
-  border-bottom-color: #ff0000;
+  border-color: #ff0000;
 }
 
 .error {
@@ -46,9 +46,8 @@
   transform: translateY(-50%) scale(1);
   transition: 0.3s;
   pointer-events: none;
-  margin-left: 15px;
   padding: 4px;
-  background-color: #fff;
+  background-color: #fcfcfc;
 }
 
 .input:focus + .placeholder,
@@ -57,30 +56,12 @@
   transform: translateY(-180%) scale(1);
 }
 
-@media screen and (max-width: 915px) {
-  .label {
-    margin-bottom: 48px;
-  }
-  .input {
-    font-size: 12px;
-    line-height: 1.25;
-  }
-  .placeholder {
-    font-size: 12px;
-    line-height: 1.25;
-  }
-  .input:focus + .placeholder,
-  .placeholderFixed {
-    font-size: 10px;
-  }
-}
-
 .input::-webkit-outer-spin-button,
 .input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.input[type=number] {
+.input[type="number"] {
   -moz-appearance: textfield;
 }

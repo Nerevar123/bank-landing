@@ -4,13 +4,21 @@ import useFormWithValidation from "../../hooks/useFormWithValidation";
 import Header from "../header/header";
 import Login from "../login/login";
 import Register from "../register/register";
+import Success from "../success/success";
 import Details from "../details/details";
 import Accounts from "../accounts/accounts";
 import Loan from "../loan/loan";
-import Footer from "../footer/footer";
 import Preloader from "../preloader/preloader";
 import appStyles from "./app.module.css";
-import { login, logout, getUserInfo, patchDetails } from "../../utils/api";
+import {
+  register,
+  login,
+  logout,
+  getUserInfo,
+  patchDetails,
+  putAccounts,
+  putLoan,
+} from "../../utils/api";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../hocs/ProtectedRoute";
 
@@ -26,7 +34,6 @@ function App() {
       .then((user) => {
         setCurrentUser(user);
         setIsLoggedIn(true);
-        // history.push("/details");
       })
       .catch((err) => {
         setIsLoggedIn(false);
@@ -34,28 +41,44 @@ function App() {
       });
   }, []);
 
+  const checkError = (err) => {
+    if (typeof err === "object") {
+      validation.setErrors({ submit: "500 Internal error" });
+    } else {
+      validation.setErrors({ submit: err });
+    }
+    console.log(err);
+  };
+
   const handleLogin = (user) => {
     setIsSaving(true);
     login(user)
       .then((user) => {
         setIsLoggedIn(true);
-        console.log(user);
         setCurrentUser(user);
-        // closeAllPopups();
         history.push("/details");
       })
       .catch((err) => {
-        if (typeof err === "object") {
-          validation.setErrors({ submit: "Internal Server Error" });
-        } else {
-          validation.setErrors({ submit: err });
-        }
-        console.log(err);
+        checkError(err);
       })
       .finally(() => {
         setIsSaving(false);
       });
   };
+
+  function handleRegister(user) {
+    setIsSaving(true);
+    register(user)
+      .then(() => {
+        history.push("/");
+      })
+      .catch((err) => {
+        checkError(err);
+      })
+      .finally(() => {
+        setIsSaving(false);
+      });
+  }
 
   const handleLogout = () => {
     logout()
@@ -75,12 +98,30 @@ function App() {
         history.push("/accounts");
       })
       .catch((err) => {
-        if (typeof err === "object") {
-          validation.setErrors({ submit: "Ошибка сервера" });
-        } else {
-          validation.setErrors({ submit: err });
-        }
-        console.log(err);
+        checkError(err);
+      });
+  };
+
+  const handlePutAccounts = (data) => {
+    putAccounts(data)
+      .then((user) => {
+        setCurrentUser(user);
+        history.push("/loan");
+      })
+      .catch((err) => {
+        checkError(err);
+      });
+  };
+
+  const handlePutLoan = (data) => {
+    putLoan(data)
+      .then((user) => {
+        setCurrentUser(user);
+        setIsLoggedIn(false);
+        history.push("/success");
+      })
+      .catch((err) => {
+        checkError(err);
       });
   };
 
@@ -91,24 +132,13 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Router history={history} basename="/">
-        <Header isLoggedIn={isLoggedIn} onLogoutClick={handleLogout} />
+        <Header
+          isLoggedIn={isLoggedIn}
+          onLogoutClick={handleLogout}
+          onLoginClick={handleLogout}
+        />
         <main className={appStyles.main}>
           <Switch>
-            <Route exact path="/register">
-              <Register />
-            </Route>
-            <ProtectedRoute exact path="/details" loggedIn={isLoggedIn}>
-              <Details
-                validation={validation}
-                onPatchDetails={handlePatchDetails}
-              />
-            </ProtectedRoute>
-            <ProtectedRoute exact path="/accounts" loggedIn={isLoggedIn}>
-              <Accounts validation={validation} goBack={history.goBack} />
-            </ProtectedRoute>
-            <ProtectedRoute exact path="/loan" loggedIn={isLoggedIn}>
-              <Loan />
-            </ProtectedRoute>
             <Route exact path="/">
               {isLoggedIn ? (
                 <Redirect to="/details" />
@@ -116,9 +146,31 @@ function App() {
                 <Login validation={validation} onAuthorize={handleLogin} />
               )}
             </Route>
+            <Route exact path="/register">
+              <Register validation={validation} onRegister={handleRegister} />
+            </Route>
+            <ProtectedRoute exact path="/details" loggedIn={isLoggedIn}>
+              <Details validation={validation} onSubmit={handlePatchDetails} />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/accounts" loggedIn={isLoggedIn}>
+              <Accounts
+                validation={validation}
+                goBack={history.goBack}
+                onSubmit={handlePutAccounts}
+              />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/loan" loggedIn={isLoggedIn}>
+              <Loan
+                validation={validation}
+                goBack={history.goBack}
+                onSubmit={handlePutLoan}
+              />
+            </ProtectedRoute>
+            <Route exact path="/success" loggedIn={isLoggedIn}>
+              <Success goBack={handleLogout} />
+            </Route>
           </Switch>
         </main>
-        <Footer />
       </Router>
     </CurrentUserContext.Provider>
   );

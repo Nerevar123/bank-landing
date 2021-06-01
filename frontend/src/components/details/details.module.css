@@ -1,18 +1,11 @@
-.form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
 .fields {
   border: 0;
   padding: 0;
-  margin: 50px 0 0 0;
+  margin: 48px 0 0 0;
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px 60px;
-
 }
 
 .input {
@@ -21,9 +14,40 @@
   padding: 20px;
 }
 
+.inputError {
+  border-color: #ff0000;
+}
+
+.placeholder {
+  margin-left: 15px;
+}
+
 .button {
   align-self: center;
   min-width: 120px;
   letter-spacing: 3px;
   text-transform: uppercase;
+}
+
+.submitError {
+  width: 100%;
+  font-size: 14px;
+  line-height: 1.25;
+  color: #ff0000;
+  transition: 0.3s;
+  margin-top: 12px;
+  opacity: 0;
+  text-align: center;
+}
+
+.submitErrorActive {
+  opacity: 1;
+}
+
+@media screen and (max-width: 500px) {
+  .fields {
+    margin-top: 32px;
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
 }

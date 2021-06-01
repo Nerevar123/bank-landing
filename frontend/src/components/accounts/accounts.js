@@ -1,19 +1,28 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import cn from "classnames";
 import Section from "../section/section";
+import Form from "../form/form";
+import Buttons from "../buttons-container/buttons-container";
 import Button from "../button/button";
 import InputBank from "../input-bank/input-bank";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import accountsStyles from "./accounts.module.css";
 
-function Accounts({ goBack }) {
+function Accounts({ goBack, onSubmit }) {
   const currentUser = useContext(CurrentUserContext);
-  const [activeFields, setActiveFields] = useState(3);
+  const [activeFields, setActiveFields] = useState(1);
   const [dataToSubmit, setDataToSubmit] = useState({});
+
+  useEffect(() => {
+    if (currentUser.accounts) {
+      setActiveFields(Object.keys(currentUser.accounts).length);
+      setDataToSubmit(currentUser.accounts);
+    }
+  }, [currentUser.accounts]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(dataToSubmit);
+    onSubmit(dataToSubmit);
   };
 
   const compileSubmitData = (data) => {
@@ -37,31 +46,35 @@ function Accounts({ goBack }) {
       <p className={accountsStyles.subtitle}>
         Company number: {currentUser.companyNumber}
       </p>
-      <form
+      <Form
         className={accountsStyles.form}
         name="accounts"
         onSubmit={handleSubmit}
-        method="GET"
       >
         {Array.from(Array(activeFields)).map((x, i) => (
-          <InputBank name={i} key={i} compileSubmitData={compileSubmitData} />
+          <InputBank index={i} key={i} compileSubmitData={compileSubmitData} />
         ))}
-        <div className={accountsStyles.buttons}>
-          <Button
-            className={cn(accountsStyles.addButton, accountsStyles.iconButton)}
-            type="button"
-            onClick={addField}
-          ></Button>
-          <Button
-            className={cn(
-              accountsStyles.deleteButton,
-              accountsStyles.iconButton
-            )}
-            type="button"
-            onClick={deleteField}
-          ></Button>
-        </div>
-        <div className={accountsStyles.buttons}>
+        {!currentUser.accounts && (
+          <Buttons>
+            <Button
+              className={cn(
+                accountsStyles.addButton,
+                accountsStyles.iconButton
+              )}
+              type="button"
+              onClick={addField}
+            ></Button>
+            <Button
+              className={cn(
+                accountsStyles.deleteButton,
+                accountsStyles.iconButton
+              )}
+              type="button"
+              onClick={deleteField}
+            ></Button>
+          </Buttons>
+        )}
+        <Buttons>
           <Button
             className={accountsStyles.button}
             type="button"
@@ -69,17 +82,11 @@ function Accounts({ goBack }) {
           >
             Back
           </Button>
-          <Button
-            className={cn(accountsStyles.button, {
-              // [accountsStyles.button]: !isValid,
-            })}
-            type="submit"
-            // disabled={!isValid}
-          >
+          <Button className={accountsStyles.button} type="submit">
             Next
           </Button>
-        </div>
-      </form>
+        </Buttons>
+      </Form>
     </Section>
   );
 }

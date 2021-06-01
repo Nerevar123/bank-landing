@@ -1,0 +1,28 @@
+.form {
+  justify-content: center;
+  align-items: center;
+}
+
+.fields {
+  border: 0;
+  padding: 0;
+  margin: 24px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  width: 60%;
+}
+
+.button {
+  align-self: center;
+  min-width: 120px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 500px) {
+  .fields {
+    width: 80%;
+  }
+}

@@ -15,16 +15,110 @@ module.exports.getUserInfo = (req, res, next) => {
     .catch(next);
 };
 
+module.exports.patchUserInfo = (req, res, next) => {
+  const {
+    email, id, name, surname, tel, birthDate, companyName, companyNumber,
+  } = req.body;
+
+  User.findByIdAndUpdate(
+    req.user,
+    {
+      email, id, name, surname, tel, birthDate, companyName, companyNumber,
+    },
+    {
+      new: true,
+      runValidators: true,
+    },
+  )
+    .orFail(new NotFoundError(notFoundUserErrorMessage))
+    .then((user) => {
+      res.send({
+        name: user.name,
+        surname: user.surname,
+        id: user.id,
+        birthDate: user.birthDate,
+        tel: user.tel,
+        email: user.email,
+        companyName: user.companyName,
+        companyNumber: user.companyNumber,
+        accounts: user.accounts,
+      });
+    })
+    .catch(next);
+};
+
+module.exports.putAccounts = (req, res, next) => {
+  const data = req.body;
+
+  User.findByIdAndUpdate(
+    req.user,
+    {
+      accounts: data,
+    },
+    {
+      new: true,
+      runValidators: true,
+    },
+  )
+    .orFail(new NotFoundError(notFoundUserErrorMessage))
+    .then((user) => {
+      res.send({
+        name: user.name,
+        surname: user.surname,
+        id: user.id,
+        birthDate: user.birthDate,
+        tel: user.tel,
+        email: user.email,
+        companyName: user.companyName,
+        companyNumber: user.companyNumber,
+        accounts: user.accounts,
+        loan: user.loan,
+      });
+    })
+    .catch(next);
+};
+
+module.exports.putLoan = (req, res, next) => {
+  const { amount, term } = req.body;
+
+  User.findByIdAndUpdate(
+    req.user,
+    {
+      loan: { amount, term },
+    },
+    {
+      new: true,
+      runValidators: true,
+    },
+  )
+    .orFail(new NotFoundError(notFoundUserErrorMessage))
+    .then((user) => {
+      res.send({
+        name: user.name,
+        surname: user.surname,
+        id: user.id,
+        birthDate: user.birthDate,
+        tel: user.tel,
+        email: user.email,
+        companyName: user.companyName,
+        companyNumber: user.companyNumber,
+        accounts: user.accounts,
+        loan: user.loan,
+      });
+    })
+    .catch(next);
+};
+
 module.exports.register = (req, res, next) => {
   const {
-    name, about, avatar, email, password,
+    email, password, id, name, surname, tel, birthDate, companyName, companyNumber,
   } = req.body;
 
   User.init()
     .then(() => {
       cryptHash(password)
         .then((hash) => User.create({
-          name, about, avatar, email, password: hash,
+          email, id, name, surname, tel, birthDate, companyName, companyNumber, password: hash,
         }))
         .then(() => res.status(201).send({ message: registrationOkMessage }))
         .catch(next);
@@ -43,7 +137,18 @@ module.exports.login = (req, res, next) => {
         secure: yn(COOKIES_SECURE),
         httpOnly: yn(COOKIES_SECURE),
       });
-      res.send({ name: user.name, email: user.email });
+      res.send({
+        name: user.name,
+        surname: user.surname,
+        id: user.id,
+        birthDate: user.birthDate,
+        tel: user.tel,
+        email: user.email,
+        companyName: user.companyName,
+        companyNumber: user.companyNumber,
+        accounts: user.accounts,
+        loan: user.loan,
+      });
     })
     .catch(next);
 };

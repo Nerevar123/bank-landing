@@ -12,7 +12,7 @@ function Navigation({ isLoggedIn, onLoginClick, onLogoutClick }) {
       <ul className={headerNavStyles.links}>
         {isLoggedIn ? (
           <>
-            {size.width > 975 && (
+            {size.width > 950 && (
               <>
                 <li className={headerNavStyles.linksItem}>
                   <NavLink
@@ -48,7 +48,10 @@ function Navigation({ isLoggedIn, onLoginClick, onLogoutClick }) {
             )}
             <li className={headerNavStyles.linksItem}>
               <Button
-                className={headerNavStyles.button}
+                className={cn(
+                  headerNavStyles.button,
+                  headerNavStyles.buttonLogged
+                )}
                 type="button"
                 onClick={onLogoutClick}
               >

@@ -1,15 +1,24 @@
-import { useRef, useState } from "react";
-import cn from "classnames";
+import { useRef, useEffect, useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import inputBankStyles from "./input-bank.module.css";
 
-function InputBank({ name, compileSubmitData }) {
+function InputBank({ index, compileSubmitData }) {
+  const currentUser = useContext(CurrentUserContext);
   const selectInputRef = useRef();
   const branchInputRef = useRef();
   const numberInputRef = useRef();
 
+  useEffect(() => {
+    if (currentUser.accounts) {
+      selectInputRef.current.value = currentUser.accounts[index].bank;
+      branchInputRef.current.value = currentUser.accounts[index].branch;
+      numberInputRef.current.value = currentUser.accounts[index].number;
+    }
+  }, [currentUser.accounts, index]);
+
   const compileData = () => {
     const data = {
-      name: name,
+      name: index,
       values: {
         bank: selectInputRef.current.value,
         branch: branchInputRef.current.value,
@@ -30,9 +39,10 @@ function InputBank({ name, compileSubmitData }) {
         <select
           className={inputBankStyles.select}
           id="standard-select"
+          name="bank"
           ref={selectInputRef}
           onChange={handleChange}
-          name="bank"
+          disabled={currentUser.accounts}
         >
           <option value="Hapoalim">Hapoalim</option>
           <option value="Leumi">Leumi</option>
@@ -41,18 +51,15 @@ function InputBank({ name, compileSubmitData }) {
           <option value="Discount">Discount</option>
         </select>
       </label>
-      {/* <div className="select"> */}
-
-      {/* <span class="focus"></span>
-    </div> */}
       <label className={inputBankStyles.label}>
         <input
           className={inputBankStyles.input}
           type="text"
           placeholder="Branch"
+          name="branch"
           ref={branchInputRef}
           onChange={handleChange}
-          name="branch"
+          disabled={currentUser.accounts}
         />
       </label>
       <label className={inputBankStyles.label}>
@@ -60,19 +67,12 @@ function InputBank({ name, compileSubmitData }) {
           className={inputBankStyles.input}
           type="text"
           placeholder="Number"
+          name="number"
           ref={numberInputRef}
           onChange={handleChange}
-          name="number"
+          disabled={currentUser.accounts}
         />
       </label>
-
-      {/* <Input
-      validation={validation}
-      className={accountsStyles.input}
-      name="name"
-      placeholder="First name"
-      required
-    /> */}
     </fieldset>
   );
 }

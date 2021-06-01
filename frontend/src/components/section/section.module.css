@@ -3,23 +3,28 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 100px auto;
-  max-width: 70%;
+  margin: 60px auto;
+  width: 70%;
+  max-width: 900px;
 }
 
 .title {
-  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
   font-weight: 700;
   font-size: 32px;
   line-height: 1.25;
   text-align: center;
   color: #2e2e2e;
   margin: 24px 0 0 0;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-@media screen and (max-width: 915px){
+@media screen and (max-width: 950px) {
   .title {
-    font-size: 20px;
-    margin-bottom: 28px;
+    font-size: 24px;
+  }
+  .section {
+    width: 90%;
   }
 }

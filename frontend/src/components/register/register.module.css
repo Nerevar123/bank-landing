@@ -1,0 +1,53 @@
+.fields {
+  border: 0;
+  padding: 0;
+  margin: 48px 0 0 0;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 60px;
+}
+
+.input {
+  border: 1px solid rgb(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.inputError {
+  border-color: #ff0000;
+}
+
+.placeholder {
+  margin-left: 15px;
+}
+
+.button {
+  align-self: center;
+  min-width: 120px;
+}
+
+.text {
+  font-size: 14px;
+  line-height: 1.43;
+  color: #000;
+  align-self: center;
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+
+.link {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.43;
+  color: #2f71e5;
+}
+
+@media screen and (max-width: 500px) {
+  .fields {
+    margin-top: 32px;
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
+}

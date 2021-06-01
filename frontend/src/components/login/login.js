@@ -1,5 +1,8 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import cn from "classnames";
 import Section from "../section/section";
+import Form from "../form/form";
 import Input from "../input/input";
 import Button from "../button/button";
 import loginStyles from "./login.module.css";
@@ -11,25 +14,21 @@ function Login({ validation, onAuthorize }) {
     resetForm();
   }, [resetForm]);
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
     onAuthorize({
       email: values.email,
       password: values.password,
     });
-  }
+  };
 
   return (
     <Section title="Sign In">
-      <form
-        className={loginStyles.form}
-        name="login"
-        onSubmit={handleSubmit}
-        method="GET"
-      >
+      <Form className={loginStyles.form} name="login" onSubmit={handleSubmit}>
         <fieldset className={loginStyles.fields}>
           <Input
             validation={validation}
+            labelClassName={loginStyles.label}
             name="email"
             placeholder="Email"
             autoComplete="email"
@@ -39,6 +38,7 @@ function Login({ validation, onAuthorize }) {
           />
           <Input
             validation={validation}
+            labelClassName={loginStyles.label}
             name="password"
             placeholder="Password"
             type="password"
@@ -46,24 +46,28 @@ function Login({ validation, onAuthorize }) {
             minLength="4"
             autoComplete="current-password"
           />
-          <span
-            className={`login__error ${
-              errors.submit ? "login__error_active" : ""
-            }`}
-          >
-            {errors.submit || ""}
-          </span>
         </fieldset>
         <Button
           type="submit"
           disabled={!isValid}
-          className={`login__save-button ${
-            !isValid ? "login__save-button_disabled" : ""
-          }`}
+          className={loginStyles.button}
         >
           Sign In
         </Button>
-      </form>
+        <p className={loginStyles.text}>
+          or{" "}
+          <Link to="/register" className={loginStyles.link}>
+            Sign Up
+          </Link>
+        </p>
+        <span
+          className={cn(loginStyles.submitError, {
+            [loginStyles.submitErrorActive]: [errors.submit],
+          })}
+        >
+          {errors.submit || ""}
+        </span>
+      </Form>
     </Section>
   );
 }
