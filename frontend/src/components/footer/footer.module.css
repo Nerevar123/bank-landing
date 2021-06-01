@@ -1,0 +1,23 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  justify-self: flex-end;
+}
+
+.copyright {
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.375;
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #B6BCBF;
+}
+
+
+@media screen and (max-width: 500px){
+  .footer {
+    padding: 20px 16px;
+  }
+}

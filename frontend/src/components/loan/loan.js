@@ -5,23 +5,26 @@ import Buttons from "../buttons-container/buttons-container";
 import Button from "../button/button";
 import Form from "../form/form";
 import InputSlider from "../input-slider/input-slider";
+import Preloader from "../preloader/preloader";
 import loanStyles from "./loan.module.css";
 
-function Loan({ goBack, onSubmit }) {
-  const [values, setValues] = useState({});
+function Loan({ goBack, onSubmit, isSaving }) {
+  const [values, setValues] = useState({ amount: "500000", term: "6" });
   const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
-    if (currentUser.loan) {
-      setValues(currentUser.loan);
+    setValues({});
+    if (currentUser.loan.length !== 0) {
+      setValues(currentUser.loan[0]);
     }
   }, [currentUser.loan]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(values);
     onSubmit({
-      amount: values.amount,
-      term: values.term,
+      amount: values.amount || "500000",
+      term: values.term || "6",
     });
   };
 
@@ -57,13 +60,6 @@ function Loan({ goBack, onSubmit }) {
             setValues={setValues}
             name="term"
           />
-          {/* <span
-            className={`login__error ${
-              errors.submit ? "login__error_active" : ""
-            }`}
-          >
-            {errors.submit || ""}
-          </span> */}
         </fieldset>
         <Buttons>
           <Button className={loanStyles.button} type="button" onClick={goBack}>
@@ -72,9 +68,9 @@ function Loan({ goBack, onSubmit }) {
           <Button
             className={loanStyles.button}
             type="submit"
-            disabled={!values.amount || !values.term}
+            disabled={isSaving}
           >
-            Submit
+            {isSaving ? <Preloader /> : "Submit"}
           </Button>
         </Buttons>
       </Form>

@@ -1,7 +1,7 @@
 import { baseUrl, checkError, headers } from "./utils";
 
 export const register = (user) => {
-  return fetch(`${baseUrl}signup`, {
+  return fetch(`${baseUrl}/signup`, {
     method: "POST",
     headers: headers,
     credentials: "include",
@@ -10,7 +10,7 @@ export const register = (user) => {
 };
 
 export const login = (user) => {
-  return fetch(`${baseUrl}signin`, {
+  return fetch(`${baseUrl}/signin`, {
     method: "POST",
     headers: headers,
     credentials: "include",
@@ -19,21 +19,21 @@ export const login = (user) => {
 };
 
 export const logout = () => {
-  return fetch(`${baseUrl}logout`, {
+  return fetch(`${baseUrl}/logout`, {
     headers: headers,
     credentials: "include",
   }).then(checkError);
 };
 
 export const getUserInfo = () => {
-  return fetch(`${baseUrl}users/me`, {
+  return fetch(`${baseUrl}/users/me`, {
     headers: headers,
     credentials: "include",
   }).then(checkError);
 };
 
 export const patchDetails = (data) => {
-  return fetch(`${baseUrl}users/me`, {
+  return fetch(`${baseUrl}/users/me`, {
     method: "PATCH",
     headers: headers,
     credentials: "include",
@@ -42,7 +42,7 @@ export const patchDetails = (data) => {
 };
 
 export const putAccounts = (data) => {
-  return fetch(`${baseUrl}users/me`, {
+  return fetch(`${baseUrl}/users/me`, {
     method: "PUT",
     headers: headers,
     credentials: "include",
@@ -51,7 +51,7 @@ export const putAccounts = (data) => {
 };
 
 export const putLoan = (data) => {
-  return fetch(`${baseUrl}users/me/loan`, {
+  return fetch(`${baseUrl}/users/me/loan`, {
     method: "PATCH",
     headers: headers,
     credentials: "include",

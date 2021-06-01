@@ -8,6 +8,7 @@ import Success from "../success/success";
 import Details from "../details/details";
 import Accounts from "../accounts/accounts";
 import Loan from "../loan/loan";
+import Footer from "../footer/footer";
 import Preloader from "../preloader/preloader";
 import appStyles from "./app.module.css";
 import {
@@ -81,17 +82,23 @@ function App() {
   }
 
   const handleLogout = () => {
+    setIsSaving(true);
     logout()
       .then(() => {
         setIsLoggedIn(false);
         history.push("/");
       })
       .catch((err) => {
+        history.push("/");
         console.log(err);
+      })
+      .finally(() => {
+        setIsSaving(false);
       });
   };
 
   const handlePatchDetails = (data) => {
+    setIsSaving(true);
     patchDetails(data)
       .then((user) => {
         setCurrentUser(user);
@@ -99,10 +106,14 @@ function App() {
       })
       .catch((err) => {
         checkError(err);
+      })
+      .finally(() => {
+        setIsSaving(false);
       });
   };
 
   const handlePutAccounts = (data) => {
+    setIsSaving(true);
     putAccounts(data)
       .then((user) => {
         setCurrentUser(user);
@@ -110,10 +121,14 @@ function App() {
       })
       .catch((err) => {
         checkError(err);
+      })
+      .finally(() => {
+        setIsSaving(false);
       });
   };
 
   const handlePutLoan = (data) => {
+    setIsSaving(true);
     putLoan(data)
       .then((user) => {
         setCurrentUser(user);
@@ -122,11 +137,14 @@ function App() {
       })
       .catch((err) => {
         checkError(err);
+      })
+      .finally(() => {
+        setIsSaving(false);
       });
   };
 
   if (isLoggedIn === null) {
-    return <Preloader />;
+    return <Preloader pageLoader />;
   }
 
   return (
@@ -136,6 +154,7 @@ function App() {
           isLoggedIn={isLoggedIn}
           onLogoutClick={handleLogout}
           onLoginClick={handleLogout}
+          isSaving={isSaving}
         />
         <main className={appStyles.main}>
           <Switch>
@@ -143,20 +162,33 @@ function App() {
               {isLoggedIn ? (
                 <Redirect to="/details" />
               ) : (
-                <Login validation={validation} onAuthorize={handleLogin} />
+                <Login
+                  validation={validation}
+                  onAuthorize={handleLogin}
+                  isSaving={isSaving}
+                />
               )}
             </Route>
             <Route exact path="/register">
-              <Register validation={validation} onRegister={handleRegister} />
+              <Register
+                validation={validation}
+                onRegister={handleRegister}
+                isSaving={isSaving}
+              />
             </Route>
             <ProtectedRoute exact path="/details" loggedIn={isLoggedIn}>
-              <Details validation={validation} onSubmit={handlePatchDetails} />
+              <Details
+                validation={validation}
+                onSubmit={handlePatchDetails}
+                isSaving={isSaving}
+              />
             </ProtectedRoute>
             <ProtectedRoute exact path="/accounts" loggedIn={isLoggedIn}>
               <Accounts
                 validation={validation}
                 goBack={history.goBack}
                 onSubmit={handlePutAccounts}
+                isSaving={isSaving}
               />
             </ProtectedRoute>
             <ProtectedRoute exact path="/loan" loggedIn={isLoggedIn}>
@@ -164,6 +196,7 @@ function App() {
                 validation={validation}
                 goBack={history.goBack}
                 onSubmit={handlePutLoan}
+                isSaving={isSaving}
               />
             </ProtectedRoute>
             <Route exact path="/success" loggedIn={isLoggedIn}>
@@ -172,6 +205,7 @@ function App() {
           </Switch>
         </main>
       </Router>
+      <Footer />
     </CurrentUserContext.Provider>
   );
 }

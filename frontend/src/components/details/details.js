@@ -4,10 +4,11 @@ import Section from "../section/section";
 import Form from "../form/form";
 import Button from "../button/button";
 import Input from "../input/input";
+import Preloader from "../preloader/preloader";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import detailsStyles from "./details.module.css";
 
-function Details({ validation, onSubmit }) {
+function Details({ validation, onSubmit, isSaving }) {
   const { values, errors, isValid, resetForm, setIsValid } = validation;
   const currentUser = useContext(CurrentUserContext);
 
@@ -128,9 +129,9 @@ function Details({ validation, onSubmit }) {
             [detailsStyles.button]: !isValid,
           })}
           type="submit"
-          disabled={!isValid}
+          disabled={!isValid || isSaving}
         >
-          Next
+          {isSaving ? <Preloader /> : "Next"}
         </Button>
         <span
           className={cn(detailsStyles.submitError, {

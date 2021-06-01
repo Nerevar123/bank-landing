@@ -1,3 +1,7 @@
+.main {
+  min-height: 72vh;
+}
+
 /* .main::before {
   content: '';
   background-image: url(../../images/main.png);

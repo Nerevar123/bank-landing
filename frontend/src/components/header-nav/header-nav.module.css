@@ -13,7 +13,7 @@
 
 .linksItem {
   display: inline;
-  margin-left: 19px;
+  margin-left: 16px;
 }
 
 .link {
@@ -50,6 +50,7 @@
 
 .buttonLogged {
   border: 1px solid #b6bcbf;
+  align-items: center;
 }
 
 .buttonLogged::after {
@@ -69,5 +70,14 @@
   }
   .linkActive::after:hover {
     opacity: 0.7;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .button {
+    padding: 4px 8px;
+  }
+  .linksItem {
+    margin-left: 0px;
   }
 }

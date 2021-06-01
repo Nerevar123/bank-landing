@@ -19,7 +19,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "scp -P 49178 -r ./build/* root@ovz1.nerevar123.px7zm.vps.myjino.ru:/root/bank-landing/backend/dist"
   },
   "eslintConfig": {
     "extends": [

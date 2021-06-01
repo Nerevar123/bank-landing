@@ -3,7 +3,7 @@ import Navigation from "../header-nav/header-nav";
 import headerStyles from "./header.module.css";
 import logo from "../../images/logo.png";
 
-function Header({ isLoggedIn, onLoginClick, onLogoutClick }) {
+function Header({ isLoggedIn, onLoginClick, onLogoutClick, isSaving }) {
   return (
     <header className={headerStyles.header}>
       <Link to="/" className={headerStyles.logo}>
@@ -13,6 +13,7 @@ function Header({ isLoggedIn, onLoginClick, onLogoutClick }) {
         isLoggedIn={isLoggedIn}
         onLoginClick={onLoginClick}
         onLogoutClick={onLogoutClick}
+        isSaving={isSaving}
       />
     </header>
   );

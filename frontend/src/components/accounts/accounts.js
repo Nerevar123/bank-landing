@@ -5,10 +5,11 @@ import Form from "../form/form";
 import Buttons from "../buttons-container/buttons-container";
 import Button from "../button/button";
 import InputBank from "../input-bank/input-bank";
+import Preloader from "../preloader/preloader";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import accountsStyles from "./accounts.module.css";
 
-function Accounts({ goBack, onSubmit }) {
+function Accounts({ goBack, onSubmit, isSaving }) {
   const currentUser = useContext(CurrentUserContext);
   const [activeFields, setActiveFields] = useState(1);
   const [dataToSubmit, setDataToSubmit] = useState({});
@@ -82,8 +83,12 @@ function Accounts({ goBack, onSubmit }) {
           >
             Back
           </Button>
-          <Button className={accountsStyles.button} type="submit">
-            Next
+          <Button
+            className={accountsStyles.button}
+            type="submit"
+            disabled={isSaving}
+          >
+            {isSaving ? <Preloader /> : "Next"}
           </Button>
         </Buttons>
       </Form>

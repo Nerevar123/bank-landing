@@ -4,9 +4,10 @@ import Section from "../section/section";
 import Form from "../form/form";
 import Button from "../button/button";
 import Input from "../input/input";
+import Preloader from "../preloader/preloader";
 import registerStyles from "./register.module.css";
 
-function Register({ validation, onRegister }) {
+function Register({ validation, onRegister, isSaving }) {
   const { values, errors, isValid, resetForm } = validation;
 
   useEffect(() => {
@@ -73,6 +74,7 @@ function Register({ validation, onRegister }) {
             errorClassName={registerStyles.inputError}
             name="surname"
             placeholder="Family name*"
+            autocomplete="family-name"
             required
             minLength="2"
             maxLength="20"
@@ -82,6 +84,7 @@ function Register({ validation, onRegister }) {
             className={registerStyles.input}
             phClassName={registerStyles.placeholder}
             errorClassName={registerStyles.inputError}
+            autoComplete="nope"
             name="id"
             placeholder="ID number*"
             required
@@ -130,10 +133,10 @@ function Register({ validation, onRegister }) {
         </fieldset>
         <Button
           type="submit"
-          disabled={!isValid}
+          disabled={!isValid || isSaving}
           className={registerStyles.button}
         >
-          Sign Up
+          {isSaving ? <Preloader /> : "Sign Up"}
         </Button>
         <p className={registerStyles.text}>
           or{" "}

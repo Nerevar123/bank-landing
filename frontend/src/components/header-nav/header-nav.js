@@ -2,10 +2,11 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import cn from "classnames";
 import Button from "../button/button";
+import Preloader from "../preloader/preloader";
 import useWindowSize from "../../hooks/useWindowSize";
 import headerNavStyles from "./header-nav.module.css";
 
-function Navigation({ isLoggedIn, onLoginClick, onLogoutClick }) {
+function Navigation({ isLoggedIn, onLoginClick, onLogoutClick, isSaving }) {
   const size = useWindowSize();
   return (
     <nav className={headerNavStyles.nav}>
@@ -55,7 +56,7 @@ function Navigation({ isLoggedIn, onLoginClick, onLogoutClick }) {
                 type="button"
                 onClick={onLogoutClick}
               >
-                Log out
+                {isSaving ? <Preloader /> : "Log out"}
               </Button>
             </li>
           </>

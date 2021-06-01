@@ -5,9 +5,10 @@ import Section from "../section/section";
 import Form from "../form/form";
 import Input from "../input/input";
 import Button from "../button/button";
+import Preloader from "../preloader/preloader";
 import loginStyles from "./login.module.css";
 
-function Login({ validation, onAuthorize }) {
+function Login({ validation, onAuthorize, isSaving }) {
   const { values, errors, isValid, resetForm } = validation;
 
   useEffect(() => {
@@ -49,10 +50,10 @@ function Login({ validation, onAuthorize }) {
         </fieldset>
         <Button
           type="submit"
-          disabled={!isValid}
+          disabled={!isValid || isSaving}
           className={loginStyles.button}
         >
-          Sign In
+          {isSaving ? <Preloader /> : "Sign In"}
         </Button>
         <p className={loginStyles.text}>
           or{" "}

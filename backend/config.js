@@ -7,8 +7,8 @@ const {
 } = process.env;
 
 const rateLimitConfig = {
-  windowMs: 15 * 60 * 1000,
-  max: 100,
+  windowMs: 15 * 60 * 5000,
+  max: 300,
 };
 
 const corsConfig = {

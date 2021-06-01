@@ -4,13 +4,13 @@
   margin: 24px 0 0 0;
   display: flex;
   justify-content: center;
-  gap: 20px;
   width: 100%;
 }
 
 .label {
   width: 30%;
   position: relative;
+  margin-left: 20px;
 }
 
 .select {
@@ -41,8 +41,12 @@
   .bankLabel {
     flex-basis: 100%;
     text-align: center;
+    margin-bottom: 20px;
   }
   .select {
     width: 65%;
+  }
+  .label:nth-of-type(2) {
+    margin-left: 0px;
   }
 }

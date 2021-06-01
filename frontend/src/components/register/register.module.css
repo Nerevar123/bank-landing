@@ -1,11 +1,11 @@
 .fields {
   border: 0;
   padding: 0;
-  margin: 48px 0 0 0;
+  margin: 0;
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px 60px;
+  gap: 10px 50px;
 }
 
 .input {
