@@ -1,7 +1,7 @@
 const {
   PORT = 3000,
   JWT_SECRET = 'JWT_SECRET',
-  MONGO_URL = 'mongodb://localhost:27017/btb',
+  MONGO_URL = 'mongodb://localhost:27017/bank',
   COOKIES_SECURE = false,
   COOKIES_SAMESITE = 'Lax',
 } = process.env;
@@ -12,7 +12,7 @@ const rateLimitConfig = {
 };
 
 const corsConfig = {
-  origin: ['https://btb.ner.works', 'http://btb.ner.works', 'http://localhost:3000', 'http://127.0.0.1:3000'],
+  origin: ['https://bank.ner.works', 'http://bank.ner.works', 'http://localhost:3000', 'http://127.0.0.1:3000'],
   credentials: true,
 };
 
