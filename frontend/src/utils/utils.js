@@ -1,4 +1,4 @@
-export const baseUrl = "https://api.bank.ner.works";
+export const baseUrl = "http://localhost:3001";
 export const headers = {
   "Content-Type": "application/json",
 };

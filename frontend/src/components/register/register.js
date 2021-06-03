@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import cn from "classnames";
 import Section from "../section/section";
 import Form from "../form/form";
 import Button from "../button/button";
@@ -74,7 +75,7 @@ function Register({ validation, onRegister, isSaving }) {
             errorClassName={registerStyles.inputError}
             name="surname"
             placeholder="Family name*"
-            autocomplete="family-name"
+            autoComplete="family-name"
             required
             minLength="2"
             maxLength="20"
@@ -123,13 +124,6 @@ function Register({ validation, onRegister, isSaving }) {
             minLength="2"
             maxLength="30"
           />
-          <span
-            className={`login__error ${
-              errors.submit ? "login__error_active" : ""
-            }`}
-          >
-            {errors.submit || ""}
-          </span>
         </fieldset>
         <Button
           type="submit"
@@ -144,6 +138,13 @@ function Register({ validation, onRegister, isSaving }) {
             Sign In
           </Link>
         </p>
+        <span
+          className={cn(registerStyles.submitError, {
+            [registerStyles.submitErrorActive]: [errors.submit],
+          })}
+        >
+          {errors.submit || ""}
+        </span>
       </Form>
     </Section>
   );

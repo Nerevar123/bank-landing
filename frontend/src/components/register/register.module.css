@@ -44,6 +44,21 @@
   color: #2f71e5;
 }
 
+.submitError {
+  width: 100%;
+  font-size: 14px;
+  line-height: 1.25;
+  color: #ff0000;
+  transition: 0.3s;
+  margin-top: 12px;
+  opacity: 0;
+  text-align: center;
+}
+
+.submitErrorActive {
+  opacity: 1;
+}
+
 @media screen and (max-width: 500px) {
   .fields {
     margin-top: 32px;
