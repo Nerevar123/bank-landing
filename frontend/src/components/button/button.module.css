@@ -27,6 +27,14 @@
   outline: none;
 }
 
+.button:disabled {
+  cursor: default;
+}
+
+.button:disabled:hover {
+  background-color: transparent;
+}
+
 @media screen and (max-width: 500px) {
   .button {
     font-size: 14px;

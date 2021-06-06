@@ -13,11 +13,13 @@ function Accounts({ goBack, onSubmit, isSaving }) {
   const currentUser = useContext(CurrentUserContext);
   const [activeFields, setActiveFields] = useState(1);
   const [dataToSubmit, setDataToSubmit] = useState({});
+  const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
     if (currentUser.accounts) {
       setActiveFields(Object.keys(currentUser.accounts).length);
       setDataToSubmit(currentUser.accounts);
+      setIsValid(true);
     }
   }, [currentUser.accounts]);
 
@@ -28,6 +30,7 @@ function Accounts({ goBack, onSubmit, isSaving }) {
 
   const compileSubmitData = (data) => {
     setDataToSubmit({ ...dataToSubmit, [data.name]: data.values });
+    setIsValid(true);
   };
 
   const addField = () => {
@@ -86,7 +89,7 @@ function Accounts({ goBack, onSubmit, isSaving }) {
           <Button
             className={accountsStyles.button}
             type="submit"
-            disabled={isSaving}
+            disabled={!isValid || isSaving}
           >
             {isSaving ? <Preloader /> : "Next"}
           </Button>
