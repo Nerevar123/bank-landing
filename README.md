@@ -13,11 +13,11 @@ React and Express.js
 
 
 
-<!-- **Link to the project**
+**Link to the project**
 
-https://stone.ner.works
+https://bank.ner.works
 
 **Link to API**
 
-https://api.stone.ner.works -->
+https://api.bank.ner.works
 
